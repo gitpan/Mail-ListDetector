@@ -32,7 +32,7 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.09';
+$VERSION = '0.011';
 
 @DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Majordomo);
 

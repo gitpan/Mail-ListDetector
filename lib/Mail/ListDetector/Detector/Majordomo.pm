@@ -22,6 +22,17 @@ sub match {
   print "Sender is [$sender]\n" if DEBUG;
 
   my ($list) = ($sender =~ /^owner\-(\S+)$/);
+  if (!(defined $list)) {
+    print "Sender didn't match owner-, trying -owner\n" if DEBUG;
+    if ($sender =~  /^(\S+?)\-owner/) {
+      print "Sender matched -owner, removing\n" if DEBUG;
+      $list = $sender;
+      $list =~ s/\-owner@/@/;
+    } else {
+      print "Sender didn't match second owner form\n" if DEBUG;
+      return undef;
+    }
+  }
   return unless defined $list;
   chomp $list;
   print "Got list [$list]\n" if DEBUG;
@@ -31,7 +42,7 @@ sub match {
   my (@received) = $head->get('Received');
   my $majordom = 0;
   foreach my $received_line (@received) {
-    if ($received_line =~ /from majordomo?\@/) {
+    if ($received_line =~ /majordomo?\@/) {
       $majordom++;
       last;
     }
