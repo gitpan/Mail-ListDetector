@@ -27,9 +27,9 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.21';
+$VERSION = '0.22';
 
-my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups RFC2919 RFC2369 Majordomo);
+my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups RFC2919 RFC2369 Majordomo Fml);
 
 foreach (@default_detectors) {
   s/^/Mail::ListDetector::Detector::/;
@@ -86,8 +86,8 @@ Mail::ListDetector - Perl extension for detecting mailing list messages
 
 =head1 DESCRIPTION
 
-This module analyzes L<Mail::Internet> objects. It returns a 
-L<Mail::ListDetector::List> object representing the mailing list.
+This module analyzes Mail::Internet objects. It returns a 
+Mail::ListDetector::List object representing the mailing list.
 
 The RFC2369 mailing list detector is also capable of matching some
 Mailman and Ezmlm messages. It is deliberately checked last to allow
@@ -98,8 +98,8 @@ accurately identify the type of mailing list involved.
 
 =head1 new()
 
-This method is the core of the module. Pass it a L<Mail::Internet>
-object, it will either return a L<Mail::ListDetector::List> object that
+This method is the core of the module. Pass it a Mail::Internet
+object, it will either return a Mail::ListDetector::List object that
 describes the mailing list that the message was posted to, or
 C<undef> if it appears not to have been a mailing list post.
 

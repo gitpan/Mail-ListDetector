@@ -11,6 +11,7 @@ lib/Mail/ListDetector/Detector/Listar.pm
 lib/Mail/ListDetector/Detector/Yahoogroups.pm
 lib/Mail/ListDetector/Detector/Ecartis.pm
 lib/Mail/ListDetector/Detector/RFC2919.pm
+lib/Mail/ListDetector/Detector/Fml.pm
 MANIFEST
 Makefile.PL
 examples/sample.pl
@@ -25,6 +26,8 @@ t/08_listar.t
 t/09_yahoogroups.t
 t/10_mailman_dot.t
 t/12_ecartis.t
+t/13_fml.t
+t/fml-match
 TODO
 BUGS
 README

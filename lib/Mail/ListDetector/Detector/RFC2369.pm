@@ -56,12 +56,12 @@ mailing lists.
 
 =head2 new()
 
-Inherited from L<Mail::ListDetector::Detector::Base>.
+Inherited from Mail::ListDetector::Detector::Base.
 
 =head2 match()
 
-Accepts a L<Mail::Internet> object and returns either a
-L<Mail::ListDetector::List> object if it is a post to a RFC2369 compliant
+Accepts a Mail::Internet object and returns either a
+Mail::ListDetector::List object if it is a post to a RFC2369 compliant
 mailing list, or C<undef>.
 
 The RFC2369 standard does not REQUIRE all the information we wish to

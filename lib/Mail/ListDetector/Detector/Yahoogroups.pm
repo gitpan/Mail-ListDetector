@@ -63,12 +63,12 @@ An implementation of a mailing list detector, for Yahoo! Groups.
 
 =head2 new()
 
-Inherited from L<Mail::ListDetector::Detector::Base>.
+Inherited from Mail::ListDetector::Detector::Base.
 
 =head2 match()
 
-Accepts a L<Mail::Internet> object and returns either a
-L<Mail::ListDetector::List> object if it is a post to a Yahoo! Groups
+Accepts a Mail::Internet object and returns either a
+Mail::ListDetector::List object if it is a post to a Yahoo! Groups
 mailing list, or C<undef>.
 
 =head1 BUGS

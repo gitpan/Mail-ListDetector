@@ -92,12 +92,12 @@ An implementation of a mailing list detector, for majordomo.
 
 =head2 new()
 
-Inherited from L<Mail::ListDetector::Detector::Base>.
+Inherited from Mail::ListDetector::Detector::Base.
 
 =head2 match()
 
-Accepts a L<Mail::Internet> object and returns either a
-L<Mail::ListDetector::List> object if it is a post to a majordomo
+Accepts a Mail::Internet object and returns either a
+Mail::ListDetector::List object if it is a post to a majordomo
 mailing list, or C<undef>.
 
 =head1 BUGS

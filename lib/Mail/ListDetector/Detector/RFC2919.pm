@@ -52,16 +52,16 @@ mailing lists, i.e., those with List-ID lines in the header.
 
 =head2 new()
 
-Inherited from L<Mail::ListDetector::Detector::Base>.
+Inherited from Mail::ListDetector::Detector::Base.
 
 =head2 match()
 
-Accepts a L<Mail::Internet> object and returns either a
-L<Mail::ListDetector::List> object if it is a post to a RFC2919 compliant
+Accepts a Mail::Internet object and returns either a
+Mail::ListDetector::List object if it is a post to a RFC2919 compliant
 mailing list, or C<undef>.
 
 Since RFC2919 only specifies a (mostly) unique ID for a mailing list,
-L<Mail::ListDetector::Detector::RFC2369> is used to attempt to extract
+Mail::ListDetector::Detector::RFC2369 is used to attempt to extract
 further information about the list.
 
 =head1 BUGS

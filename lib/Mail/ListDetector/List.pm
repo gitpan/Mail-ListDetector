@@ -52,7 +52,7 @@ Mail::ListDetector::List - an object representing a mailing list
 
 This object provides a representation of the information extracted
 about a mailing list. It should not be instantiated directly by anything
-outside the L<Mail::ListDetector> package.
+outside the Mail::ListDetector package.
 
 =head1 METHODS
 

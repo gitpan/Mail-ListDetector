@@ -85,12 +85,12 @@ be recognized by that detector instead.
 
 =head2 new()
 
-Inherited from L<Mail::ListDetector::Detector::Base>.
+Inherited from Mail::ListDetector::Detector::Base.
 
 =head2 match()
 
-Accepts a L<Mail::Internet> object and returns either a
-L<Mail::ListDetector::List> object if it is a post to a Ecartis
+Accepts a Mail::Internet object and returns either a
+Mail::ListDetector::List object if it is a post to a Ecartis
 mailing list, or C<undef>.
 
 =head1 BUGS
