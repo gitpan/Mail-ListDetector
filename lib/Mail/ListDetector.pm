@@ -7,6 +7,7 @@ use Mail::ListDetector::Detector::Ezmlm;
 use Mail::ListDetector::Detector::Smartlist;
 use Mail::ListDetector::Detector::Majordomo;
 use Mail::ListDetector::Detector::RFC2369;
+use Mail::ListDetector::Detector::Listar;
 
 require Exporter;
 use AutoLoader qw(AUTOLOAD);
@@ -32,9 +33,9 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.011';
+$VERSION = '0.012';
 
-@DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Majordomo);
+@DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Listar Majordomo);
 
 foreach (@DETECTORS) {
   $_ = "Mail::ListDetector::Detector::" . $_;
@@ -123,6 +124,12 @@ mailing lists.
 The majordomo and smartlist recognisers don't have much to go on,
 and therefore are probably not as reliable as the other detectors.
 This is liable to be hard to fix.
+
+=item *
+
+Forwarding messages (for example using procmail) can sometimes break
+the C<Sender: > header information needed to recognise some list
+types.
 
 =back
 

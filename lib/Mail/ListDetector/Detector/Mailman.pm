@@ -18,27 +18,39 @@ sub match {
     print "Returning undef - couldn't find mailman version - $version\n" if DEBUG;
     return undef;
   }
+  print "Mailman version $version\n" if DEBUG
   my $list;
   $list = new Mail::ListDetector::List;
   $list->listsoftware("GNU Mailman version $version");
   my $list_id = $head->get('List-Id');
+  print "List-Id is $list_id\n" if DEBUG;
+  return undef unless defined $list_id;
+  chomp $list_id;
   my $listname;
   my $list_full_name;
-  if ($list_id =~ /^.*?\ \<(\S+?)\>$/) {
+  if ($list_id =~ /^.*?\ ?<(\S+?)\>$/) {
+    print "Listid matches pattern\n" if DEBUG;
     $list_full_name = $listname = $1;
     ($listname) = ($listname =~ /^([^.]*?)\./);
+    print "Got listname $listname\n" if DEBUG;
     $list->listname($listname);
+  } else {
+    print "List id doesn't match\n" if DEBUG;
+    return undef;
   }
   my $posting_address;
   my $list_post = $head->get('List-Post');
   if (defined $list_post) {
+    print "Got list post $list_post\n" if DEBUG;
     if ($list_post =~ /^\<mailto\:([^\>]*)\>$/) {
       $posting_address = $1;
+      print "Got posting address $posting_address\n" if DEBUG;
       $list->posting_address($posting_address);
     }
   } else {
     $posting_address = $list_full_name;
     $posting_address =~ s/\./\@/;
+    print "Got posting address $posting_address\n" if DEBUG;
     $list->posting_address($posting_address);
   }
 

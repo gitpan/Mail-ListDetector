@@ -7,6 +7,7 @@ lib/Mail/ListDetector/Detector/Ezmlm.pm
 lib/Mail/ListDetector/Detector/Smartlist.pm
 lib/Mail/ListDetector/Detector/Majordomo.pm
 lib/Mail/ListDetector/Detector/RFC2369.pm
+lib/Mail/ListDetector/Detector/Listar.pm
 MANIFEST
 Makefile.PL
 examples/sample.pl
