@@ -2,10 +2,8 @@
 
 use strict;
 use Mail::Internet;
+use Test::More tests => 4;
 use Mail::ListDetector;
-
-$| = 1;
-print "1..4\n";
 
 my $mail;
 
@@ -13,30 +11,10 @@ $mail = new Mail::Internet(\*DATA);
 
 my $list = new Mail::ListDetector($mail);
 
-if (!defined($list)) {
-  print "not ok 1\n";
-  exit 0;
-} else {
-  print "ok 1\n";
-}
-
-if ($list->listname eq 'ryokoforever') {
-  print "ok 2\n";
-} else {
-  print "not ok 2\n";
-}
-
-if ($list->listsoftware eq 'Yahoo! Groups') {
-  print "ok 3\n";
-} else {
-  print "not ok 3\n";
-}
-
-if ($list->posting_address eq 'ryokoforever@yahoogroups.com') {
-  print "ok 4\n";
-} else {
-  print "not ok 4\n";
-}
+ok(defined($list), 'list is defined');
+is($list->listname, 'ryokoforever', 'listname');
+is($list->listsoftware, 'Yahoo! Groups', 'list software');
+is($list->posting_address, 'ryokoforever@yahoogroups.com', 'posting address');
 
 __DATA__
 From sentto-482527-3071-992625570-turner=mikomi.org@returns.onelist.com  Fri Jun 15 13:21:26 2001

@@ -1,11 +1,9 @@
 #!/usr/bin/perl -w
 
 use strict;
+use Test::More tests => 1;
 use Mail::Internet;
 use Mail::ListDetector;
-
-$| = 1;
-print "1..1\n";
 
 my $mail;
 
@@ -13,11 +11,7 @@ $mail = new Mail::Internet(\*DATA);
 
 my $list = new Mail::ListDetector($mail);
 
-if (defined($list)) {
-  print "not ok 1\n";
-} else {
-  print "ok 1\n";
-}
+ok(!defined($list), "list not defined");
 
 __DATA__
 From root@home.etla.org Sat Jan 20 13:37:58 2001

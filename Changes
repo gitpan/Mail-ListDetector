@@ -4,3 +4,8 @@ Revision history for Perl extension Mail::ListDetector.
 	- original version; created by h2xs 1.20 with options
 		-X -n Mail::ListDetector
 
+0.15 Thu Aug 09 20:00:00 2001
+	- support more lists,
+	- bugfixes
+	- use Test::More
+	- Patches from Andy Turner

@@ -1,11 +1,9 @@
 #!/usr/bin/perl -w
 
 use strict;
+use Test::More tests => 4;
 use Mail::Internet;
 use Mail::ListDetector;
-
-$| = 1;
-print "1..4\n";
 
 my $mail;
 
@@ -13,30 +11,10 @@ $mail = new Mail::Internet(\*DATA);
 
 my $list = new Mail::ListDetector($mail);
 
-if (!defined($list)) {
-  print "not ok 1\n";
-  exit 0;
-} else {
-  print "ok 1\n";
-}
-
-if ($list->listname eq 'templates') {
-  print "ok 2\n";
-} else {
-  print "not ok 2\n";
-}
-
-if ($list->listsoftware eq 'GNU Mailman version 2.0rc1') {
-  print "ok 3\n";
-} else {
-  print "not ok 3\n";
-}
-
-if ($list->posting_address eq 'templates@template-toolkit.org') {
-  print "ok 4\n";
-} else {
-  print "not ok 4\n";
-}
+ok(defined($list), 'list defined');
+is($list->listname, 'templates', 'listname is templates');
+is($list->listsoftware, 'GNU Mailman version 2.0rc1');
+is($list->posting_address, 'templates@template-toolkit.org', 'posting address is templates@template-toolkit.org');
 
 __DATA__
 From templates-admin@template-toolkit.org Tue Nov 28 21:17:30 2000

@@ -1,11 +1,9 @@
 #!/usr/bin/perl -w
 
 use strict;
+use Test::More tests => 4;
 use Mail::Internet;
 use Mail::ListDetector;
-
-$| = 1;
-print "1..4\n";
 
 my $mail;
 
@@ -13,30 +11,10 @@ $mail = new Mail::Internet(\*DATA);
 
 my $list = new Mail::ListDetector($mail);
 
-if (!defined($list)) {
-  print "not ok 1\n";
-  exit 0;
-} else {
-  print "ok 1\n";
-}
-
-if ($list->listname eq 'adm') {
-  print "ok 2\n";
-} else {
-  print "not ok 2\n";
-}
-
-if ($list->listsoftware eq 'Listar v0.129a') {
-  print "ok 3\n";
-} else {
-  print "not ok 3\n";
-}
-
-if ($list->posting_address eq 'adm@oasys.net') {
-  print "ok 4\n";
-} else {
-  print "not ok 4\n";
-}
+ok(defined($list), 'list is defined');
+is($list->listname, 'adm', 'list name');
+is($list->listsoftware, 'Listar v0.129a', 'list name');
+is($list->posting_address, 'adm@oasys.net', 'posting address');
 
 __DATA__
 From adm-bounce@oasys.net  Mon Jun  4 06:41:14 2001

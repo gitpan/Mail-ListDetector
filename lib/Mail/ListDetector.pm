@@ -34,7 +34,7 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.15';
+$VERSION = '0.16';
 
 @DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Listar Yahoogroups Majordomo);
 
@@ -134,9 +134,9 @@ types.
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Michael Stevens - michael@etla.org.
+Michael Stevens - michael@etla.org. Andy Turner - turner@mikomi.org.
 
 =head1 SEE ALSO
 

@@ -1,11 +1,9 @@
 #!/usr/bin/perl -w
 
 use strict;
+use Test::More tests => 4;
 use Mail::Internet;
 use Mail::ListDetector;
-
-$| = 1;
-print "1..4\n";
 
 my $mail;
 
@@ -13,30 +11,10 @@ $mail = new Mail::Internet(\*DATA);
 
 my $list = new Mail::ListDetector($mail);
 
-if (!defined($list)) {
-  print "not ok 1\n";
-  exit 0;
-} else {
-  print "ok 1\n";
-}
-
-if ($list->listname eq 'thoth-devel') {
-  print "ok 2\n";
-} else {
-  print "not ok 2\n";
-}
-
-if ($list->listsoftware eq 'smartlist') {
-  print "ok 3\n";
-} else {
-  print "not ok 3\n";
-}
-
-if ($list->posting_address eq 'thoth-devel@firedrake.org') {
-  print "ok 4\n";
-} else {
-  print "not ok 4\n";
-}
+ok(defined($list), 'List is defined');
+is($list->listname, 'thoth-devel', 'list is thoth-devel');
+is($list->listsoftware, 'smartlist', 'software is smartlist');
+is($list->posting_address, 'thoth-devel@firedrake.org', 'posting address');
 
 # Email used with permission from roger, assuming tests only
 # available to those downloading the archive.

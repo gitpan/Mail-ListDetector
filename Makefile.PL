@@ -8,6 +8,7 @@ WriteMakefile(
                              'Mail::Internet' => 1.33,
 			     'Email::Valid' => 0.12,
 			     'URI' => 1.10,
+			     'Test::More' => 0.08,
                               }, 
     'dist' => { 'COMPRESS' => 'gzip -9f',
                 'SUFFIX' => 'gz',
