@@ -19,6 +19,8 @@ t/04_ezmlm.t
 t/05_smartlist.t
 t/06_majordomo.t
 t/07_sympa.t
+t/08_listar.t
+t/09_yahoogroups.t
 TODO
 BUGS
 README

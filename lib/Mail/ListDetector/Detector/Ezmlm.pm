@@ -23,7 +23,7 @@ sub match {
   print "Matching for information\n" if DEBUG;
   ($help, $listsoftware) = ($mailing_list =~ /^contact (\S+?)\; run by (\w+)$/);
   print "Help was [$help], listsoftware was [$listsoftware]\n" if DEBUG;
-  if ($listsoftware eq 'ezmlm') {
+  if ((defined $listsoftware) and ($listsoftware eq 'ezmlm')) {
     print "List software matched\n" if DEBUG;
     my $list = new Mail::ListDetector::List;
     print "Set listsoftware = [$listsoftware]\n" if DEBUG;

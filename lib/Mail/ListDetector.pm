@@ -34,7 +34,7 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.14';
+$VERSION = '0.15';
 
 @DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Listar Yahoogroups Majordomo);
 
