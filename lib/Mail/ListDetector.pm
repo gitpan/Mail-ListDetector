@@ -27,7 +27,7 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.27';
+$VERSION = '0.28';
 
 my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups CommuniGatePro Listbox RFC2919 Fml RFC2369 Majordomo);
 
@@ -177,6 +177,10 @@ Tatsuhiko Miyagawa - miyagawa@bulknews.net
 =item *
 
 johnnnnnn - john@phaedrusdeinus.org
+
+=item *
+
+Mik Firestone - mik@racerx.homedns.org
 
 =back
 

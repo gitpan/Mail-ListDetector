@@ -30,3 +30,6 @@ Revision history for Perl extension Mail::ListDetector.
   - Add mention of mailing list to README file.
   - Integrate cleanup and new detector from Matthew Walker <matthew@walker.wattle.id.au>
 
+0.28 26 Aug 2003
+  - Add Patch from Mik Firestone for Mailman on freebsd mailing lists (
+  	and probably others)

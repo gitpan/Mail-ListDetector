@@ -37,6 +37,11 @@ sub match {
 		print "Listname is $2\n" if DEBUG;
 		$poss_posting_address = $2 . '@' . $4;
 		print "Possible posting address is $poss_posting_address\n" if DEBUG;
+	} elsif ($sender =~ /^((admin|owner)-([^@]+)\@(\S+))$/) {
+		$list->listname($3);
+		$poss_posting_address = $3 . '@' . $4;
+		print "Listname is $3\n" if DEBUG;
+		print "Possible posting address is $poss_posting_address\n" if DEBUG;
 	}
   } else {
 		# fallback way to guess posting address and list name.
