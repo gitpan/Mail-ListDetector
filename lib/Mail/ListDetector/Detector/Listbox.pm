@@ -2,7 +2,7 @@ package Mail::ListDetector::Detector::Listbox;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 use base qw(Mail::ListDetector::Detector::Base);
 use Mail::ListDetector::List;
@@ -16,19 +16,26 @@ sub match {
   carp ("Mail::ListDetector::Detector::Listbox - no message supplied") unless defined($message);
   my $head = $message->head();
 
+  my $posting_address;
+  my $list_software = $head->get('List-Software');
   my $list_id = $head->get('List-Id');
-  if (defined($list_id) && ($list_id =~ m/<(.*\@v2.listbox.com)>/)) {
-    my $posting_address = $1;
-    
-	my $list = new Mail::ListDetector::List;
-    $list->listname($posting_address);
-    $list->listsoftware('Listbox v2');
-    $list->posting_address($posting_address);
-
-    return $list;
+  if(defined($list_software) && ($list_software =~ m/listbox.com v/)) {
+    unless (defined($list_id) && ($list_id =~ m/<([^\@]+\@[^\@]+)>/)) { return undef; }
+    $posting_address = $1;
+	chomp($list_software);
+  } elsif(defined($list_id) && ($list_id =~ m/<([^\@]+\@v2.listbox.com)>/)) {
+    $posting_address = $1;
+    $list_software = 'listbox.com v2.0';
   } else {
 	return undef;
   }
+    
+  my $list = new Mail::ListDetector::List;
+  $list->listname($posting_address);
+  $list->listsoftware($list_software);
+  $list->posting_address($posting_address);
+
+  return $list;
 }
 
 1;
@@ -73,6 +80,12 @@ mailing list, or C<undef>.
 =head1 BUGS
 
 No known bugs.
+
+=head1 NOTES
+
+Thanks to Mark Overmeer <Mark@Overmeer.net> for asking and
+Meng Weng Wong <mengwong@pobox.com> for adding the List-Software
+header to Listbox mails to make this detector more robust.
 
 =head1 AUTHOR
 

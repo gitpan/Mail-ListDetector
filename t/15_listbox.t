@@ -2,7 +2,7 @@
 
 use strict;
 use Mail::Internet;
-use Test::More tests => 4;
+use Test::More tests => 8;
 use Mail::ListDetector;
 
 my $mail;
@@ -13,7 +13,16 @@ my $list = new Mail::ListDetector($mail);
 
 ok(defined($list), 'list is defined');
 is($list->listname, 'sample@v2.listbox.com', 'listname');
-is($list->listsoftware, 'Listbox v2', 'list software');
+is($list->listsoftware, 'listbox.com v2.0', 'list software');
+is($list->posting_address, 'sample@v2.listbox.com', 'posting address');
+
+$mail->head->delete('List-Software');
+
+$list = new Mail::ListDetector($mail);
+
+ok(defined($list), 'list is defined');
+is($list->listname, 'sample@v2.listbox.com', 'listname');
+is($list->listsoftware, 'listbox.com v2.0', 'list software');
 is($list->posting_address, 'sample@v2.listbox.com', 'posting address');
 
 __DATA__
@@ -42,6 +51,7 @@ Sender: owner-sample@v2.listbox.com
 Precedence: list
 Reply-To: sample@v2.listbox.com
 List-Id: <sample@v2.listbox.com>
+List-Software: listbox.com v2.0
 List-Help: <http://v2.listbox.com/help?list_name=sample@v2.listbox.com>
 List-Subscribe: <mailto:subscribe-sample@v2.listbox.com>,
     <http://v2.listbox.com/subscribe/?listname=sample@v2.listbox.com>
