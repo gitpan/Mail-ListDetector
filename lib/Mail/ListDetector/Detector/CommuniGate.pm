@@ -1,12 +1,11 @@
-package Mail::ListDetector::Detector::CommuniGatePro;
+package Mail::ListDetector::Detector::CommuniGate;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.02';
+$VERSION = '0.01';
 
 use base qw(Mail::ListDetector::Detector::Base);
 use Mail::ListDetector::List;
-use Mail::ListDetector::Detector::RFC2919;
 use Carp;
 
 sub DEBUG { 0 }
@@ -15,23 +14,24 @@ sub match {
 	my $self = shift;
 	my $message = shift;
 	print "Got message $message\n" if DEBUG;
-	carp ("Mail::ListDetector::Detector::CommuniGatePro - no message supplied") unless defined($message);
+	carp ("Mail::ListDetector::Detector::CommuniGate - no message supplied") unless defined($message);
 	my $head = $message->head();
 
 	my $x_listserver = $head->get('X-Listserver');
-	if (defined($x_listserver) && ($x_listserver =~ m/CommuniGate Pro LIST/)) {
+	if (defined($x_listserver) && ($x_listserver =~ m/CommuniGate List/)) {
 		chomp $x_listserver;
 
 		my $sender = $head->get('Sender');
 		return undef unless defined($sender);
-		$sender =~ m/<(.+)>/ or return undef;
+		$sender =~ m/([^\s]+@[^\s]+)\s+\((.*)\)/ or return undef;
 		my $posting_address = $1;
+		my $listname = $2;
 
-		my $rfc2919 = new Mail::ListDetector::Detector::RFC2919;
-		my $list = ( $rfc2919->match($message) or new Mail::ListDetector::List );
+		my $list = new Mail::ListDetector::List;
 
 		$list->listsoftware($x_listserver);
 		$list->posting_address($posting_address);
+		$list->listname($listname);
 
 		return $list;
 	} else {
@@ -47,19 +47,17 @@ __END__
 
 =head1 NAME
 
-Mail::ListDetector::Detector::CommuniGatePro - CommuniGate Pro message detector
+Mail::ListDetector::Detector::CommuniGate - CommuniGate message detector
 
 =head1 SYNOPSIS
 
-  use Mail::ListDetector::Detector::CommuniGatePro;
+  use Mail::ListDetector::Detector::CommuniGate;
 
 =head1 DESCRIPTION
 
-An implementation of a mailing list detector, for CommuniGate Pro mailing lists,
-See http://www.stalker.com/ for details about CommuniGate Pro.
-
-CommuniGate Pro mailing list messages are RFC2919 compliant but this module
-provides more information.
+An implementation of a mailing list detector, for CommuniGate mailing lists,
+CommuniGate is a legacy MacOS messaging application, see
+http://www.stalker.com/mac/default.html for details about CommuniGate.
 
 =head1 METHODS
 
@@ -70,12 +68,8 @@ Inherited from Mail::ListDetector::Detector::Base.
 =head2 match()
 
 Accepts a Mail::Internet object and returns either a
-Mail::ListDetector::List object if it is a post to a CommuniGate Pro
+Mail::ListDetector::List object if it is a post to a CommuniGate
 mailing list, or C<undef>.
-
-Since CommuniGate Pro specifies a (mostly) unique ID for a mailing list
-in the format of RFC2919, Mail::ListDetector::Detector::RFC2919 is used
-to attempt to extract this information about the list.
 
 =head1 BUGS
 

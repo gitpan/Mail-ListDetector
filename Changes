@@ -33,3 +33,6 @@ Revision history for Perl extension Mail::ListDetector.
 0.28 26 Aug 2003
   - Add Patch from Mik Firestone for Mailman on freebsd mailing lists (
   	and probably others)
+
+0.29 13 Oct 2003
+  - Add patch from Matthew Walker for Communigate.
