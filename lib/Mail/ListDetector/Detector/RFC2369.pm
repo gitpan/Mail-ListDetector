@@ -18,7 +18,8 @@ sub match {
   my $posting_uri = Email::Abstract->get_header($message, 'List-Post');
   return undef unless defined($posting_uri);
   chomp $posting_uri;
-  my $posting_u = new URI($posting_uri);
+  return undef unless $posting_uri =~ m/(<.*>)/;
+  my $posting_u = new URI($1);
   return undef unless defined $posting_u;
   if ($posting_u->scheme ne 'mailto') {
     return undef;

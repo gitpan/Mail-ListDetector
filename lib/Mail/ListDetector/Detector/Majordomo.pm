@@ -37,6 +37,9 @@ sub match {
   return unless defined $list;
   chomp $list;
   print "Got list [$list]\n" if DEBUG;
+  if ($list =~ m/(majordomo?|domo)\@/) {
+	return undef;
+  }
   return unless Email::Valid->address($list);
   print "List is valid email\n" if DEBUG;
 
@@ -47,7 +50,7 @@ sub match {
     my (@received) = Email::Abstract->get_header($message, 'Received');
     my $majordom = 0;
     foreach my $received_line (@received) {
-      if ($received_line =~ /majordomo?\@/) {
+      if ($received_line =~ /(majordomo?|domo)\@/) {
         $majordom++;
         last;
       }

@@ -15,7 +15,6 @@ sub match {
     my($self, $message) = @_;
     print "Got message $message\n" if DEBUG;
     carp ("Mail::ListDetector::Detector::Fml - no message supplied") unless defined($message);
-    my $head = $message->head;
     my $mlserver = Email::Abstract->get_header($message, 'X-MLServer') or return;
     $mlserver =~ /^fml \[(fml [^\]]*)\]/ or return;
 

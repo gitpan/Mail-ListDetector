@@ -59,8 +59,7 @@ An implementation of a mailing list detector, for Listbox mailing lists,
 Listbox is a commercial list hosting service, see http://www.listbox.com/
 for details about Listbox.
 
-When used this module installs itself to Mail::ListDetector. Listbox
-mailing list messages look like RFC2919 messages to the current RFC2919
+Listbox mailing list messages look like RFC2919 messages to the current RFC2919
 detector (although they are not compliant) but this module provides more
 information and does not test for their full compliance (like a future
 RFC2919 module might). For this reason this module must be installed

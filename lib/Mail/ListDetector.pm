@@ -27,9 +27,9 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.30';
+$VERSION = '0.31';
 
-my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups CommuniGatePro Listbox RFC2919 Fml RFC2369 CommuniGate Majordomo Listserv);
+my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups CommuniGatePro GoogleGroups Listbox AutoShare RFC2919 Fml ListSTAR RFC2369 CommuniGate LetterRip Lyris Onelist Majordomo Listserv);
 
 foreach (@default_detectors) {
   s/^/Mail::ListDetector::Detector::/;

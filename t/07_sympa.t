@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Test::More tests => 4;
+use Test::More tests => 8;
 use Mail::Internet;
 use Mail::ListDetector;
 
@@ -10,6 +10,15 @@ my $mail;
 $mail = new Mail::Internet(\*DATA);
 
 my $list = new Mail::ListDetector($mail);
+
+ok(defined($list), 'list is defined');
+is($list->listname, 'noustestons', 'listname');
+is($list->listsoftware, 'RFC2369', 'list software');
+is($list->posting_address, 'noustestons@cru.fr', 'posting address');
+
+$mail->head->replace ('List-Post', '<mailto:noustestons@cru.fr> (with a nice comment)');
+
+$list = new Mail::ListDetector($mail);
 
 ok(defined($list), 'list is defined');
 is($list->listname, 'noustestons', 'listname');

@@ -39,3 +39,14 @@ Revision history for Perl extension Mail::ListDetector.
 
 0.30 28 May 2004
   - Add patch from Simon Cozens for use of Email::Abstract.
+
+0.31 8 June 2004
+  - Add correction to previous patch from Simon Cozens.
+  - Add the following from Matthew Walker:
+	- tweak docs for Listbox
+	- for RFC2369 List-Post has URI in <>'s but may have comments, now extract
+	  text from within <>'s to give to URI
+	- Majordomo now recognises lists using domo as unix user not just majordomo 
+	- added new detectors for AutoShare, Google Groups, LetterRip, ListSTAR,
+	  Lyris and Onelist
+	- added tests for all changes and additions
