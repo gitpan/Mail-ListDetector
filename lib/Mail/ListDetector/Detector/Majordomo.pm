@@ -39,31 +39,35 @@ sub match {
   return unless Email::Valid->address($list);
   print "List is valid email\n" if DEBUG;
 
-  my (@received) = $head->get('Received');
-  my $majordom = 0;
-  foreach my $received_line (@received) {
-    if ($received_line =~ /majordomo?\@/) {
-      $majordom++;
-      last;
+  my $mv;
+  # Some versions of Majordomo provide a version number
+  unless ($mv = $head->get('X-Majordomo-Version')) {
+    # If we don't have a version number check the received headers.
+    my (@received) = $head->get('Received');
+    my $majordom = 0;
+    foreach my $received_line (@received) {
+      if ($received_line =~ /majordomo?\@/) {
+        $majordom++;
+        last;
+      }
     }
+    print "Received check returned [$majordom]\n" if DEBUG;
+    return unless $majordom;
   }
-  print "Received check returned [$majordom]\n" if DEBUG;
 
-  return unless $majordom;
-  if ($majordom) {
-    print "On list\n" if DEBUG;
-    my $l = new Mail::ListDetector::List;
-    $l->listsoftware('majordomo');
-    $l->posting_address($list);
-    print "Set listsoftware 'majordomo', posting address [$list]\n" if DEBUG;
-    my ($listname) = ($list =~ /^([^@]+)@/);
-    print "Listname is [$listname]\n" if DEBUG;
-    $l->listname($listname);
-    return $l;
+  print "On list\n" if DEBUG;
+  my $l = new Mail::ListDetector::List;
+  if ($mv) {
+    $l->listsoftware("majordomo $mv");
   } else {
-    print "Not list\n" if DEBUG;
-    return undef;
+    $l->listsoftware('majordomo');
   }
+  $l->posting_address($list);
+  print "Set listsoftware 'majordomo', posting address [$list]\n" if DEBUG;
+  my ($listname) = ($list =~ /^([^@]+)@/);
+  print "Listname is [$listname]\n" if DEBUG;
+  $l->listname($listname);
+  return $l;
 }
 
 1;

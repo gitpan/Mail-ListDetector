@@ -9,6 +9,8 @@ lib/Mail/ListDetector/Detector/Majordomo.pm
 lib/Mail/ListDetector/Detector/RFC2369.pm
 lib/Mail/ListDetector/Detector/Listar.pm
 lib/Mail/ListDetector/Detector/Yahoogroups.pm
+lib/Mail/ListDetector/Detector/Ecartis.pm
+lib/Mail/ListDetector/Detector/RFC2919.pm
 MANIFEST
 Makefile.PL
 examples/sample.pl
@@ -22,6 +24,7 @@ t/07_sympa.t
 t/08_listar.t
 t/09_yahoogroups.t
 t/10_mailman_dot.t
+t/12_ecartis.t
 TODO
 BUGS
 README

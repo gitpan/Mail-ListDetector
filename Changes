@@ -9,3 +9,7 @@ Revision history for Perl extension Mail::ListDetector.
 	- bugfixes
 	- use Test::More
 	- Patches from Andy Turner
+
+0.19 Wed Jan 02 20:59:19 2002
+  - assimilate Mail::ListDetector::Detector::Fml
+

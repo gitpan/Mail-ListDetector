@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Test::More tests => 10;
+use Test::More tests => 13;
 
 BEGIN {
 	use_ok('Mail::ListDetector');
@@ -14,5 +14,8 @@ BEGIN {
 	use_ok('Mail::ListDetector::Detector::RFC2369');
 	use_ok('Mail::ListDetector::Detector::Listar');
 	use_ok('Mail::ListDetector::Detector::Yahoogroups');
+	use_ok('Mail::ListDetector::Detector::Fml');
+	use_ok('Mail::ListDetector::Detector::Ecartis');
+	use_ok('Mail::ListDetector::Detector::RFC2919');
 }
 

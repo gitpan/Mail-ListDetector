@@ -17,14 +17,11 @@ sub match {
   chomp $mailing_list;
   my ($posting_address) = ( $mailing_list =~ /^\<(\S+?)\> archive\/latest\/\d+/ );
   return undef unless defined $posting_address;
-  my $loop = $head->get('X-Loop');
-  return undef unless defined $loop;
-  chomp $loop;
-  return undef unless ($loop eq $posting_address);
+  return undef unless grep(/^$posting_address\s?$/, $head->get('X-Loop'));
   my $list = new Mail::ListDetector::List;
   $list->listsoftware('smartlist');
-  $list->posting_address($loop);
-  my ($listname) = ($loop =~ /^([^@]+)@/);
+  $list->posting_address($posting_address);
+  my ($listname) = ($posting_address =~ /^([^@]+)@/);
   $list->listname($listname);
   return $list;
 

@@ -1,14 +1,7 @@
 package Mail::ListDetector;
 
 use strict;
-use Carp;
-use Mail::ListDetector::Detector::Mailman;
-use Mail::ListDetector::Detector::Ezmlm;
-use Mail::ListDetector::Detector::Smartlist;
-use Mail::ListDetector::Detector::Majordomo;
-use Mail::ListDetector::Detector::RFC2369;
-use Mail::ListDetector::Detector::Listar;
-use Mail::ListDetector::Detector::Yahoogroups;
+use Carp qw(carp croak);
 
 require Exporter;
 use AutoLoader qw(AUTOLOAD);
@@ -34,12 +27,13 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.18';
+$VERSION = '0.19';
 
-@DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Listar Yahoogroups Majordomo);
+my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups RFC2919 RFC2369 Majordomo);
 
-foreach (@DETECTORS) {
-  $_ = "Mail::ListDetector::Detector::" . $_;
+foreach (@default_detectors) {
+  s/^/Mail::ListDetector::Detector::/;
+  Mail::ListDetector->register_plugin($_);
 }
 
 # package subs
@@ -69,6 +63,15 @@ sub new {
   return undef;
 }
 
+# load a plugin module
+sub register_plugin {
+  my $self = shift;
+  my $plugin_name = shift;
+
+  eval "require $plugin_name; ${plugin_name}->import;";
+  croak("register_plugin couldn't load $plugin_name: $@") if $@; 
+  push @DETECTORS, $plugin_name;
+}
 
 1;
 __END__
@@ -83,7 +86,7 @@ Mail::ListDetector - Perl extension for detecting mailing list messages
 
 =head1 DESCRIPTION
 
-This module analyzses L<Mail:;Internet> objects. It returns a 
+This module analyzes L<Mail::Internet> objects. It returns a 
 L<Mail::ListDetector::List> object representing the mailing list.
 
 The RFC2369 mailing list detector is also capable of matching some
@@ -99,6 +102,15 @@ This method is the core of the module. Pass it a L<Mail::Internet>
 object, it will either return a L<Mail::ListDetector::List> object that
 describes the mailing list that the message was posted to, or
 C<undef> if it appears not to have been a mailing list post.
+
+=head1 register_plugin($plugin_name)
+
+Registers a new plugin module that might recognise lists. Should
+be a subclass of Mail::ListDetector::Detector::Base, and provide
+the same interface as the other detector modules.
+
+You can eval arbitrary perl code with this, so don't do that if that's
+not what you want.
 
 =head1 EMAILS USED
 
@@ -137,9 +149,11 @@ types.
 =head1 AUTHORS
 
 Michael Stevens - michael@etla.org. Andy Turner - turner@mikomi.org.
+Adam Lazur - adam@lazur.org. Peter Oliver - p.d.oliver@mavit.freeserve.co.uk
 
 =head1 SEE ALSO
 
-perl(1).
+perl(1). The Mail::Audit::List module, which is a convenient way of using
+Mail::Audit and Mail::ListDetector together.
 
 =cut

@@ -1,4 +1,4 @@
-package Mail::ListDetector::Detector::Listar;
+package Mail::ListDetector::Detector::Ecartis;
 
 use strict;
 use base qw(Mail::ListDetector::Detector::Base);
@@ -11,7 +11,7 @@ sub match {
   my $self = shift;
   my $message = shift;
   print "Got message $message\n" if DEBUG;
-  carp ("Mail::ListDetector::Detector::Listar - no message supplied") unless defined($message);
+  carp ("Mail::ListDetector::Detector::Ecartis - no message supplied") unless defined($message);
   my $head = $message->head();
   my @senders = $head->get('Sender');
   my $list;
@@ -45,11 +45,11 @@ sub match {
   return unless Email::Valid->address($list);
   print "List is valid email\n" if DEBUG;
 
-  # get listar version
-  my $lv = $head->get('X-listar-version');
+  # get Ecartis version
+  my $lv = $head->get('X-Ecartis-Version');
   return undef unless defined $lv;
   chomp $lv;
-  my $listname = $head->get('X-list');
+  my $listname = $head->get('X-List');
   return undef unless defined $listname;
   chomp $listname;
   my $l = new Mail::ListDetector::List;
@@ -67,18 +67,18 @@ __END__
 
 =head1 NAME
 
-Mail::ListDetector::Detector::Listar - Listar message detector
+Mail::ListDetector::Detector::Ecartis - Ecartis message detector
 
 =head1 SYNOPSIS
 
-  use Mail::ListDetector::Detector::Listar;
+  use Mail::ListDetector::Detector::Ecartis;
 
 =head1 DESCRIPTION
 
-An implementation of a mailing list detector, for Listar.
+An implementation of a mailing list detector, for Ecartis.
 
-Listar can be configured for rfc2369 compliance, however often this is not
-done.  If an Listar list is configured to be rfc2369 compliant then it will
+Ecartis can be configured for rfc2369 compliance, however often this is not
+done.  If an Ecartis list is configured to be rfc2369 compliant then it will
 be recognized by that detector instead.
 
 =head1 METHODS
@@ -90,7 +90,7 @@ Inherited from L<Mail::ListDetector::Detector::Base>.
 =head2 match()
 
 Accepts a L<Mail::Internet> object and returns either a
-L<Mail::ListDetector::List> object if it is a post to a listar
+L<Mail::ListDetector::List> object if it is a post to a Ecartis
 mailing list, or C<undef>.
 
 =head1 BUGS

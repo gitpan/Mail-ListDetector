@@ -24,7 +24,7 @@ sub match {
   $list->listsoftware("Yahoo! Groups");
   my $listname;
   my $posting_address;
-  if ($mailing_list =~ /^\s*list\s+([^@\s]+)@((?:e|yahoo)groups.com);\s+contact\s+\1-owner@\2$/) {
+  if ($mailing_list =~ /^\s*list\s+([^@\s]+)@((?:e|yahoo)groups\.(..|com));\s+contact\s+\1-owner@\2$/) {
     print "Mailing-List matches pattern\n" if DEBUG;
     $listname = $1;
     $posting_address = "$1\@$2";
