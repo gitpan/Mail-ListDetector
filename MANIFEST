@@ -6,6 +6,7 @@ lib/Mail/ListDetector/Detector/Mailman.pm
 lib/Mail/ListDetector/Detector/Ezmlm.pm
 lib/Mail/ListDetector/Detector/Smartlist.pm
 lib/Mail/ListDetector/Detector/Majordomo.pm
+lib/Mail/ListDetector/Detector/RFC2369.pm
 MANIFEST
 Makefile.PL
 examples/sample.pl
@@ -15,6 +16,7 @@ t/03_mailman.t
 t/04_ezmlm.t
 t/05_smartlist.t
 t/06_majordomo.t
+t/07_sympa.t
 TODO
 BUGS
 README

@@ -7,7 +7,8 @@ WriteMakefile(
     'PREREQ_PM'		=> {                              'Carp' => 0,
                              'Mail::Internet' => 1.33,
 			     'Email::Valid' => 0.12,
-                              }, # e.g., Module::Name => 1.1
+			     'URI' => 1.10,
+                              }, 
     'dist' => { 'COMPRESS' => 'gzip -9f',
                 'SUFFIX' => 'gz',
 	      },
