@@ -14,15 +14,15 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Listserv - no message supplied") unless defined($message);
-  my $head = $message->head();
+  use Email::Abstract;
 
   my ($posting_address, $list_name, $list_software);
-  my @received = $head->get('Received');
+  my @received = Email::Abstract->get_header($message, 'Received');
   foreach my $received (@received) {
 #	$received =~ s/\n/ /;
 	if($received =~ m/\(LISTSERV-TCP\/IP\s+release\s+([^\s]+)\)/s) {
       $list_software = "LISTSERV-TCP/IP release $1";
-      my $sender = $head->get('Sender');
+      my $sender = Email::Abstract->get_header($message, 'Sender');
       if($sender =~ m/^(.*) <(.+)>$/) {
 		$list_name = $1;
         $posting_address = $2;

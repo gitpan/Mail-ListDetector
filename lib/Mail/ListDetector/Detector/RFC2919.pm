@@ -14,9 +14,9 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::RFC2919 - no message supplied") unless defined($message);
-  my $head = $message->head();
+  use Email::Abstract;
 
-  my $list_id = $head->get('List-ID');
+  my $list_id = Email::Abstract->get_header($message, 'List-ID');
   return undef unless defined($list_id);
   $list_id =~ m/<(.+)>/ or return undef;
   my $listname = $1;

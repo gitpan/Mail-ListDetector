@@ -12,8 +12,8 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Yahoogroups - no message supplied") unless defined($message);
-  my $head = $message->head();
-  my $mailing_list = $head->get('Mailing-List');
+  use Email::Abstract;
+  my $mailing_list = Email::Abstract->get_header($message, 'Mailing-List');
   chomp $mailing_list if defined $mailing_list;
   if ((!defined $mailing_list) or $mailing_list =~ /^\s*$/) {
     print "Returning undef - couldn't find Mailing-List header\n" if DEBUG;

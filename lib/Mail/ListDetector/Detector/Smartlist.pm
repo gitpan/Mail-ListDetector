@@ -12,13 +12,13 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Smartlist - no message supplied") unless defined($message);
-  my $head = $message->head();
-  my $mailing_list = $head->get('X-Mailing-List');
+  use Email::Abstract;
+  my $mailing_list = Email::Abstract->get_header($message, 'X-Mailing-List');
   return undef unless defined $mailing_list;
   chomp $mailing_list;
   my ($posting_address) = ( $mailing_list =~ /^\<(\S+?)\> archive\/latest\/\d+/ );
   return undef unless defined $posting_address;
-  return undef unless grep(/^$posting_address\s?$/, $head->get('X-Loop'));
+  return undef unless grep(/^$posting_address\s?$/, Email::Abstract->get_header($message, 'X-Loop'));
   my $list = new Mail::ListDetector::List;
   $list->listsoftware('smartlist');
   $list->posting_address($posting_address);

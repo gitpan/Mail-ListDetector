@@ -16,13 +16,13 @@ sub match {
 	my $message = shift;
 	print "Got message $message\n" if DEBUG;
 	carp ("Mail::ListDetector::Detector::CommuniGatePro - no message supplied") unless defined($message);
-	my $head = $message->head();
+	use Email::Abstract;
 
-	my $x_listserver = $head->get('X-Listserver');
+	my $x_listserver = Email::Abstract->get_header($message, 'X-Listserver');
 	if (defined($x_listserver) && ($x_listserver =~ m/CommuniGate Pro LIST/)) {
 		chomp $x_listserver;
 
-		my $sender = $head->get('Sender');
+		my $sender = Email::Abstract->get_header($message, 'Sender');
 		return undef unless defined($sender);
 		$sender =~ m/<(.+)>/ or return undef;
 		my $posting_address = $1;

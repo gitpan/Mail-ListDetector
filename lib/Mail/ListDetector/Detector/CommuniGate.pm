@@ -2,6 +2,7 @@ package Mail::ListDetector::Detector::CommuniGate;
 
 use strict;
 use vars qw($VERSION);
+use Email::Abstract;
 $VERSION = '0.01';
 
 use base qw(Mail::ListDetector::Detector::Base);
@@ -15,13 +16,12 @@ sub match {
 	my $message = shift;
 	print "Got message $message\n" if DEBUG;
 	carp ("Mail::ListDetector::Detector::CommuniGate - no message supplied") unless defined($message);
-	my $head = $message->head();
 
-	my $x_listserver = $head->get('X-Listserver');
+	my $x_listserver = Email::Abstract->get_header($message, 'X-Listserver');
 	if (defined($x_listserver) && ($x_listserver =~ m/CommuniGate List/)) {
 		chomp $x_listserver;
 
-		my $sender = $head->get('Sender');
+		my $sender = Email::Abstract->get_header($message, 'Sender');
 		return undef unless defined($sender);
 		$sender =~ m/([^\s]+@[^\s]+)\s+\((.*)\)/ or return undef;
 		my $posting_address = $1;

@@ -15,11 +15,11 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Listbox - no message supplied") unless defined($message);
-  my $head = $message->head();
+  use Email::Abstract;
 
   my $posting_address;
-  my $list_software = $head->get('List-Software');
-  my $list_id = $head->get('List-Id');
+  my $list_software = Email::Abstract->get_header($message, 'List-Software');
+  my $list_id = Email::Abstract->get_header($message, 'List-Id');
   if(defined($list_software) && ($list_software =~ m/listbox.com v/)) {
     unless (defined($list_id) && ($list_id =~ m/<([^\@]+\@[^\@]+)>/)) { return undef; }
     $posting_address = $1;

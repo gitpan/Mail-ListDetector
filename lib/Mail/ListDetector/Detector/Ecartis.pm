@@ -13,8 +13,8 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Ecartis - no message supplied") unless defined($message);
-  my $head = $message->head();
-  my @senders = $head->get('Sender');
+  use Email::Abstract;
+  my @senders = Email::Abstract->get_header($message, 'Sender');
   my $list;
   foreach my $sender (@senders) {
     chomp $sender;
@@ -47,10 +47,10 @@ sub match {
   print "List is valid email\n" if DEBUG;
 
   # get Ecartis version
-  my $lv = $head->get('X-Ecartis-Version');
+  my $lv = Email::Abstract->get_header($message, 'X-Ecartis-Version');
   return undef unless defined $lv;
   chomp $lv;
-  my $listname = $head->get('X-List');
+  my $listname = Email::Abstract->get_header($message, 'X-List');
   return undef unless defined $listname;
   chomp $listname;
   my $l = new Mail::ListDetector::List;

@@ -13,9 +13,9 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::RFC2369 - no message supplied") unless defined($message);
-  my $head = $message->head();
+  use Email::Abstract;
 
-  my $posting_uri = $head->get('List-Post');
+  my $posting_uri = Email::Abstract->get_header($message, 'List-Post');
   return undef unless defined($posting_uri);
   chomp $posting_uri;
   my $posting_u = new URI($posting_uri);

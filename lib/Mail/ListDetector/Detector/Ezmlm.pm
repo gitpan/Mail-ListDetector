@@ -12,10 +12,10 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Ezmlm - no message supplied") unless defined($message);
-  my $head = $message->head();
+  use Email::Abstract;
 
   print "Getting mailing list header\n" if DEBUG;
-  my $mailing_list = $head->get('Mailing-List');
+  my $mailing_list = Email::Abstract->get_header($message, 'Mailing-List');
   return undef unless defined $mailing_list;
   print "Got header, and isn't null\n" if DEBUG;
   chomp $mailing_list;

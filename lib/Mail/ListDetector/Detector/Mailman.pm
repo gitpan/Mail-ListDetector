@@ -12,8 +12,8 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Mailman - no message supplied") unless defined($message);
-  my $head = $message->head();
-  my $version = $head->get('X-Mailman-Version');
+  use Email::Abstract;
+  my $version = Email::Abstract->get_header($message, 'X-Mailman-Version');
   chomp $version if defined $version;
   if ((!defined $version) or $version =~ /^\s*$/) {
     print "Returning undef - couldn't find mailman version - $version\n" if DEBUG;
@@ -24,7 +24,7 @@ sub match {
   $list = new Mail::ListDetector::List;
   $list->listsoftware("GNU Mailman version $version");
 
-  my $sender = $head->get('Sender');
+  my $sender = Email::Abstract->get_header($message, 'Sender');
   print "Sender is $sender\n" if DEBUG && defined $sender;
   # return undef unless defined $sender;
   my $poss_posting_address;
@@ -45,7 +45,7 @@ sub match {
 	}
   } else {
 		# fallback way to guess posting address and list name.
-		my $beenthere = $head->get('X-BeenThere');
+		my $beenthere = Email::Abstract->get_header($message, 'X-BeenThere');
 		return undef unless defined $beenthere;
 		print "X-BeenThere is $beenthere\n" if DEBUG;
 		$poss_posting_address = $beenthere;
@@ -56,7 +56,7 @@ sub match {
   }
 
   my $posting_address;
-  my $list_post = $head->get('List-Post');
+  my $list_post = Email::Abstract->get_header($message, 'List-Post');
   if (defined $list_post) {
     print "Got list post $list_post\n" if DEBUG;
     if ($list_post =~ /^\<mailto\:([^\>]*)\>$/) {

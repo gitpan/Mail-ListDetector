@@ -13,9 +13,9 @@ sub match {
   my $message = shift;
   print "Got message $message\n" if DEBUG;
   carp ("Mail::ListDetector::Detector::Majordomo - no message supplied") unless defined($message);
-  my $head = $message->head();
+  use Email::Abstract;
 
-  my $sender = $head->get('Sender');
+  my $sender = Email::Abstract->get_header($message, 'Sender');
   print "Got sender\n" if DEBUG;
   return unless defined $sender;
   print "Sender was defined\n" if DEBUG;
@@ -42,9 +42,9 @@ sub match {
 
   my $mv;
   # Some versions of Majordomo provide a version number
-  unless ($mv = $head->get('X-Majordomo-Version')) {
+  unless ($mv = Email::Abstract->get_header($message, 'X-Majordomo-Version')) {
     # If we don't have a version number check the received headers.
-    my (@received) = $head->get('Received');
+    my (@received) = Email::Abstract->get_header($message, 'Received');
     my $majordom = 0;
     foreach my $received_line (@received) {
       if ($received_line =~ /majordomo?\@/) {

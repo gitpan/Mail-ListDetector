@@ -16,7 +16,7 @@ sub match {
     print "Got message $message\n" if DEBUG;
     carp ("Mail::ListDetector::Detector::Fml - no message supplied") unless defined($message);
     my $head = $message->head;
-    my $mlserver = $head->get('X-MLServer') or return;
+    my $mlserver = Email::Abstract->get_header($message, 'X-MLServer') or return;
     $mlserver =~ /^fml \[(fml [^\]]*)\]/ or return;
 
     # OK, this is FML message
@@ -24,21 +24,21 @@ sub match {
     $list->listsoftware($1);
 
     my $post;
-    if ($post = $head->get('List-Post')) {
+    if ($post = Email::Abstract->get_header($message, 'List-Post')) {
         chomp($post);
         $post = URI->new($post)->to;
-    } elsif ($post = $head->get('List-Subscribe')) {
+    } elsif ($post = Email::Abstract->get_header($message, 'List-Subscribe')) {
         chomp($post);
         $post = URI->new($post)->to;
         $post =~ s/-ctl\@/\@/;
-    } elsif ($post = $head->get('X-ML-Info')) {
+    } elsif ($post = Email::Abstract->get_header($message, 'X-ML-Info')) {
         chomp($post);
         $post =~ s/\n/ /;
         $post =~ m/(<.*>)/;
         $post = $1;
         $post = URI->new($post)->to;
         $post =~ s/-admin\@/\@/;
-    } elsif ($post = $head->get('Resent-To')) {
+    } elsif ($post = Email::Abstract->get_header($message, 'Resent-To')) {
         chomp($post);
         $post =~ m/([\w\d\+\.\-]+@[\w\d\.\-]+)/;
         $post = $1;
@@ -49,7 +49,7 @@ sub match {
     }
 
     my $mlname;
-    if ($mlname = $head->get('X-ML-Name')) {
+    if ($mlname = Email::Abstract->get_header($message, 'X-ML-Name')) {
         chomp($mlname);
         $list->listname($mlname);
     } elsif ($mlname = $list->posting_address) {
