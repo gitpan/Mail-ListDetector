@@ -12,6 +12,7 @@ lib/Mail/ListDetector/Detector/Yahoogroups.pm
 lib/Mail/ListDetector/Detector/Ecartis.pm
 lib/Mail/ListDetector/Detector/RFC2919.pm
 lib/Mail/ListDetector/Detector/Fml.pm
+lib/Mail/ListDetector/Detector/CommuniGatePro.pm
 MANIFEST
 Makefile.PL
 examples/sample.pl
@@ -27,6 +28,7 @@ t/09_yahoogroups.t
 t/10_mailman_dot.t
 t/12_ecartis.t
 t/13_fml.t
+t/14_communigatepro.t
 t/fml-match
 TODO
 BUGS

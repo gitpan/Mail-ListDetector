@@ -27,9 +27,9 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.22';
+$VERSION = '0.23';
 
-my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups RFC2919 RFC2369 Majordomo Fml);
+my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups CommuniGatePro RFC2919 RFC2369 Majordomo Fml);
 
 foreach (@default_detectors) {
   s/^/Mail::ListDetector::Detector::/;
@@ -148,8 +148,37 @@ types.
 
 =head1 AUTHORS
 
-Michael Stevens - michael@etla.org. Andy Turner - turner@mikomi.org.
-Adam Lazur - adam@lazur.org. Peter Oliver - p.d.oliver@mavit.freeserve.co.uk
+=over 4
+
+=item *
+
+Michael Stevens - michael@etla.org.
+
+=item *
+
+Andy Turner - turner@mikomi.org.
+
+=item *
+
+Adam Lazur - adam@lazur.org.
+
+=item *
+
+Peter Oliver - p.d.oliver@mavit.freeserve.co.uk
+
+=item *
+
+Matthew Walker - matthew@walker.wattle.id.au
+
+=item *
+
+Tatsuhiko Miyagawa - miyagawa@bulknews.net
+
+=item *
+
+johnnnnnn - john@phaedrusdeinus.org
+
+=back
 
 =head1 SEE ALSO
 

@@ -28,7 +28,7 @@ sub match {
   return undef unless defined $sender;
   chomp $sender;
   my $poss_posting_address;
-  if ($sender =~ /^(([^@]+)-(admin|owner)\@(\S+))$/) {
+  if ($sender =~ /^(([^@]+)-(admin|owner|bounces)\@(\S+))$/) {
     print "sender matches pattern\n" if DEBUG;
     $list->listname($2); 
     print "Listname is $2\n" if DEBUG;
