@@ -6,6 +6,7 @@ $VERSION = '0.02';
 
 use base qw(Mail::ListDetector::Detector::Base);
 use Mail::ListDetector::List;
+use Carp;
 
 sub DEBUG { 0 }
 

@@ -3,6 +3,7 @@ package Mail::ListDetector::Detector::Mailman;
 use strict;
 use base qw(Mail::ListDetector::Detector::Base);
 use Mail::ListDetector::List;
+use Carp;
 
 sub DEBUG { 0 }
 

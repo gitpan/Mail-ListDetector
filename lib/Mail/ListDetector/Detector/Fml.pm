@@ -7,9 +7,14 @@ $VERSION = '0.04';
 use base qw(Mail::ListDetector::Detector::Base);
 use URI;
 use Email::Valid;
+use Carp;
+
+sub DEBUG { 0 }
 
 sub match {
     my($self, $message) = @_;
+    print "Got message $message\n" if DEBUG;
+    carp ("Mail::ListDetector::Detector::Fml - no message supplied") unless defined($message);
     my $head = $message->head;
     my $mlserver = $head->get('X-MLServer') or return;
     $mlserver =~ /^fml \[(fml [^\]]*)\]/ or return;

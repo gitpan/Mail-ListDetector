@@ -4,6 +4,7 @@ use strict;
 use base qw(Mail::ListDetector::Detector::Base);
 use Mail::ListDetector::List;
 use Email::Valid;
+use Carp;
 
 sub DEBUG { 0 }
 
