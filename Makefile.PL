@@ -10,7 +10,6 @@ WriteMakefile(
                         'Email::Valid'   => 0.12,
                         'URI'            => 1.10,
                         'Test::More'     => 0.08,
-                        'Mail::ListDetector::Detector::Fml' => 0.03,
                        }, 
     'dist' => { 'COMPRESS' => 'gzip -9f',
                 'SUFFIX'   => 'gz',
