@@ -21,3 +21,7 @@ Revision history for Perl extension Mail::ListDetector.
   - Cleanup documentation to fix rt.cpan.org ticket 62
   - Finally assimilate Mail::ListDetector::Detector::Fml properly
   - Import into CVS
+
+0.24 Sun Jul 06 2003
+  - I've lost the CVS repository, oh well, that's what CPAN's for.
+  - Add recognition for some mailman lists with minimal headers.

@@ -24,16 +24,28 @@ sub match {
   $list->listsoftware("GNU Mailman version $version");
 
   my $sender = $head->get('Sender');
-  print "Sender is $sender\n" if DEBUG;
-  return undef unless defined $sender;
-  chomp $sender;
+  print "Sender is $sender\n" if DEBUG && defined $sender;
+  # return undef unless defined $sender;
   my $poss_posting_address;
-  if ($sender =~ /^(([^@]+)-(admin|owner|bounces)\@(\S+))$/) {
-    print "sender matches pattern\n" if DEBUG;
-    $list->listname($2); 
-    print "Listname is $2\n" if DEBUG;
-    $poss_posting_address = $2 . '@' . $4;
-    print "Possible posting address is $poss_posting_address\n" if DEBUG;
+
+  if (defined $sender) {
+	chomp $sender;
+	if ($sender =~ /^(([^@]+)-(admin|owner|bounces)\@(\S+))$/) {
+		print "sender matches pattern\n" if DEBUG;
+		$list->listname($2); 
+		print "Listname is $2\n" if DEBUG;
+		$poss_posting_address = $2 . '@' . $4;
+		print "Possible posting address is $poss_posting_address\n" if DEBUG;
+	}
+  } else {
+		# fallback way to guess posting address and list name.
+		my $beenthere = $head->get('X-BeenThere');
+		print "X-BeenThere is $beenthere\n" if DEBUG;
+		$poss_posting_address = $beenthere;
+		chomp $poss_posting_address;
+		if ($beenthere =~ /^([^@]+)\@/) {
+			$list->listname($1);
+		}
   }
 
   my $posting_address;

@@ -27,7 +27,7 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.23';
+$VERSION = '0.24';
 
 my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups CommuniGatePro RFC2919 RFC2369 Majordomo Fml);
 
