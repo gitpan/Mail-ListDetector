@@ -40,6 +40,7 @@ sub match {
   } else {
 		# fallback way to guess posting address and list name.
 		my $beenthere = $head->get('X-BeenThere');
+		return undef unless defined $beenthere;
 		print "X-BeenThere is $beenthere\n" if DEBUG;
 		$poss_posting_address = $beenthere;
 		chomp $poss_posting_address;

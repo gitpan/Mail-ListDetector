@@ -25,3 +25,8 @@ Revision history for Perl extension Mail::ListDetector.
 0.24 Sun Jul 06 2003
   - I've lost the CVS repository, oh well, that's what CPAN's for.
   - Add recognition for some mailman lists with minimal headers.
+
+0.25 Mon Jul 21 2003
+  - Add mention of mailing list to README file.
+  - Integrate cleanup and new detector from Matthew Walker <matthew@walker.wattle.id.au>
+

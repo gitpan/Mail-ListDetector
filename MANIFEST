@@ -8,6 +8,7 @@ lib/Mail/ListDetector/Detector/Smartlist.pm
 lib/Mail/ListDetector/Detector/Majordomo.pm
 lib/Mail/ListDetector/Detector/RFC2369.pm
 lib/Mail/ListDetector/Detector/Listar.pm
+lib/Mail/ListDetector/Detector/Listbox.pm
 lib/Mail/ListDetector/Detector/Yahoogroups.pm
 lib/Mail/ListDetector/Detector/Ecartis.pm
 lib/Mail/ListDetector/Detector/RFC2919.pm
@@ -29,6 +30,8 @@ t/10_mailman_dot.t
 t/12_ecartis.t
 t/13_fml.t
 t/14_communigatepro.t
+t/15_listbox.t
+t/16_fml_announce.t
 t/fml-match
 TODO
 BUGS

@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Test::More tests => 4;
+use Test::More tests => 8;
 use Mail::Internet;
 use Mail::ListDetector;
 
@@ -10,6 +10,15 @@ my $mail;
 $mail = new Mail::Internet(\*DATA);
 
 my $list = new Mail::ListDetector($mail);
+
+ok(defined($list), 'list defined');
+is($list->listname, 'templates', 'listname is templates');
+is($list->listsoftware, 'GNU Mailman version 2.0rc1');
+is($list->posting_address, 'templates@template-toolkit.org', 'posting address is templates@template-toolkit.org');
+
+$mail->head->delete('Sender');
+
+$list = new Mail::ListDetector($mail);
 
 ok(defined($list), 'list defined');
 is($list->listname, 'templates', 'listname is templates');

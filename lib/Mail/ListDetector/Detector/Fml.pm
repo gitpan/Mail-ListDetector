@@ -2,19 +2,11 @@ package Mail::ListDetector::Detector::Fml;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 use base qw(Mail::ListDetector::Detector::Base);
 use URI;
-
-BEGIN {
-    # install me before RFC2369
-    use Mail::ListDetector;
-    @Mail::ListDetector::DETECTORS = map {
-	$_ eq 'Mail::ListDetector::Detector::RFC2369'
-	    ? (__PACKAGE__, $_) : $_;
-    } @Mail::ListDetector::DETECTORS;
-}
+use Email::Valid;
 
 sub match {
     my($self, $message) = @_;
@@ -26,11 +18,40 @@ sub match {
     my $list = Mail::ListDetector::List->new;
     $list->listsoftware($1);
 
-    chomp(my $post = $head->get('List-Post'));
-    $list->posting_address(URI->new($post)->to);
+    my $post;
+    if ($post = $head->get('List-Post')) {
+        chomp($post);
+        $post = URI->new($post)->to;
+    } elsif ($post = $head->get('List-Subscribe')) {
+        chomp($post);
+        $post = URI->new($post)->to;
+        $post =~ s/-ctl\@/\@/;
+    } elsif ($post = $head->get('X-ML-Info')) {
+        chomp($post);
+        $post =~ s/\n/ /;
+        $post =~ m/(<.*>)/;
+        $post = $1;
+        $post = URI->new($post)->to;
+        $post =~ s/-admin\@/\@/;
+    } elsif ($post = $head->get('Resent-To')) {
+        chomp($post);
+        $post =~ m/([\w\d\+\.\-]+@[\w\d\.\-]+)/;
+        $post = $1;
+    }
 
-    chomp(my $mlname = $head->get('X-ML-Name'));
-    $list->listname($mlname);
+    if ($post && Email::Valid->address($post)) {
+        $list->posting_address($post);
+    }
+
+    my $mlname;
+    if ($mlname = $head->get('X-ML-Name')) {
+        chomp($mlname);
+        $list->listname($mlname);
+    } elsif ($mlname = $list->posting_address) {
+        $mlname =~ s/\@.*$//;
+		$list->listname($mlname);
+    }
+        
 
     $list;
 }

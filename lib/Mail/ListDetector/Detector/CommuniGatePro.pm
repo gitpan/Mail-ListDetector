@@ -2,12 +2,11 @@ package Mail::ListDetector::Detector::CommuniGatePro;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 use base qw(Mail::ListDetector::Detector::Base);
 use Mail::ListDetector::List;
 use Mail::ListDetector::Detector::RFC2919;
-use URI;
 
 sub DEBUG { 0 }
 
