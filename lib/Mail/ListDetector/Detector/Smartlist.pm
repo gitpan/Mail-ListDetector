@@ -1,0 +1,72 @@
+package Mail::ListDetector::Detector::Smartlist;
+
+use strict;
+use base qw(Mail::ListDetector::Detector::Base);
+use Mail::ListDetector::List;
+
+sub DEBUG { 0 }
+
+sub match {
+  my $self = shift;
+  my $message = shift;
+  print "Got message $message\n" if DEBUG;
+  carp ("Mail::ListDetector::Detector::Smartlist - no message supplied") unless defined($message);
+  my $head = $message->head();
+  my $mailing_list = $head->get('X-Mailing-List');
+  return undef unless defined $mailing_list;
+  chomp $mailing_list;
+  my ($posting_address) = ( $mailing_list =~ /^\<(\S+?)\> archive\/latest\/\d+/ );
+  return undef unless defined $posting_address;
+  my $loop = $head->get('X-Loop');
+  return undef unless defined $loop;
+  chomp $loop;
+  return undef unless ($loop eq $posting_address);
+  my $list = new Mail::ListDetector::List;
+  $list->listsoftware('smartlist');
+  $list->posting_address($loop);
+  my ($listname) = ($loop =~ /^([^@]+)@/);
+  $list->listname($listname);
+  return $list;
+
+}
+
+1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Mail::ListDetector::Detector::Smartlist - Smartlist message detector
+
+=head1 SYNOPSIS
+
+  use Mail::ListDetector::Detector::Smartlist;
+
+=head1 DESCRIPTION
+
+An implementation of a mailing list detector, for smartlist.
+
+=head1 METHODS
+
+=head2 new()
+
+Inherited from L<Mail::ListDetector::Detector::Base>.
+
+=head2 match()
+
+Accepts a L<Mail::Internet> object and returns either a
+L<Mail::ListDetector::List> object if it is a post to a smartlist
+mailing list, or C<undef>.
+
+=head1 BUGS
+
+No known bugs.
+
+=head1 AUTHOR
+
+Michael Stevens - michael@etla.org.
+
+=cut
+
