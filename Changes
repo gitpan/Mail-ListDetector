@@ -13,3 +13,6 @@ Revision history for Perl extension Mail::ListDetector.
 0.19 Wed Jan 02 20:59:19 2002
   - assimilate Mail::ListDetector::Detector::Fml
 
+0.21 Mon May 06 22:19:00 2002
+  - unassimilate Fml
+  - Patch from Peter Oliver for list owner messages

@@ -28,11 +28,11 @@ sub match {
   return undef unless defined $sender;
   chomp $sender;
   my $poss_posting_address;
-  if ($sender =~ /^(([^@]+)-admin\@(\S+))$/) {
+  if ($sender =~ /^(([^@]+)-(admin|owner)\@(\S+))$/) {
     print "sender matches pattern\n" if DEBUG;
     $list->listname($2); 
     print "Listname is $2\n" if DEBUG;
-    $poss_posting_address = $2 . '@' . $3;
+    $poss_posting_address = $2 . '@' . $4;
     print "Possible posting address is $poss_posting_address\n" if DEBUG;
   }
 
