@@ -8,6 +8,7 @@ use Mail::ListDetector::Detector::Smartlist;
 use Mail::ListDetector::Detector::Majordomo;
 use Mail::ListDetector::Detector::RFC2369;
 use Mail::ListDetector::Detector::Listar;
+use Mail::ListDetector::Detector::Yahoogroups;
 
 require Exporter;
 use AutoLoader qw(AUTOLOAD);
@@ -33,9 +34,9 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.13';
+$VERSION = '0.14';
 
-@DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Listar Majordomo);
+@DETECTORS = qw(Mailman Ezmlm Smartlist RFC2369 Listar Yahoogroups Majordomo);
 
 foreach (@DETECTORS) {
   $_ = "Mail::ListDetector::Detector::" . $_;

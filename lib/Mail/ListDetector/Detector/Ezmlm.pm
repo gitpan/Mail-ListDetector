@@ -29,7 +29,7 @@ sub match {
     print "Set listsoftware = [$listsoftware]\n" if DEBUG;
     $list->listsoftware($listsoftware);
     my $posting = $help;
-    $posting =~ s/\-help\@/\@/;
+    $posting =~ s/-help\@/\@/;
     DEBUG && print "posting is [$posting]\n";
     $list->posting_address($posting);
     # FIXME: dodgy for unusual addresses.

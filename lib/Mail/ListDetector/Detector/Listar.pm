@@ -18,15 +18,22 @@ sub match {
   foreach my $sender (@senders) {
     chomp $sender;
 
-    ($list) = ($sender =~ /^owner\-(\S+)$/);
+    ($list) = ($sender =~ /^owner-(\S+)$/);
     if (!(defined $list)) {
       print "Sender didn't match owner-, trying -owner\n" if DEBUG;
-      if ($sender =~  /^(\S+?)\-owner/) {
+      if ($sender =~  /^(\S+?)-owner/) {
         print "Sender matched -owner, removing\n" if DEBUG;
         $list = $sender;
-        $list =~ s/\-owner@/@/;
+        $list =~ s/-owner@/@/;
       } else {
         print "Sender didn't match second owner form\n" if DEBUG;
+        if ($sender =~ /^(\S+?)-bounce/) {
+          print "Sender matched -bounce, removing\n" if DEBUG;
+          $list = $sender;
+          $list =~ s/-bounce@/@/;
+        } else {
+          print "Sender didn't match bounce form\n" if DEBUG;
+        }
       }
     }
     last if defined $list;

@@ -21,13 +21,13 @@ sub match {
   chomp $sender;
   print "Sender is [$sender]\n" if DEBUG;
 
-  my ($list) = ($sender =~ /^owner\-(\S+)$/);
+  my ($list) = ($sender =~ /^owner-(\S+)$/);
   if (!(defined $list)) {
     print "Sender didn't match owner-, trying -owner\n" if DEBUG;
-    if ($sender =~  /^(\S+?)\-owner/) {
+    if ($sender =~  /^(\S+?)-owner/) {
       print "Sender matched -owner, removing\n" if DEBUG;
       $list = $sender;
-      $list =~ s/\-owner@/@/;
+      $list =~ s/-owner@/@/;
     } else {
       print "Sender didn't match second owner form\n" if DEBUG;
       return undef;
