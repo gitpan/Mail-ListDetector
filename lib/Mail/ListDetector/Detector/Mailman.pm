@@ -22,22 +22,20 @@ sub match {
   my $list;
   $list = new Mail::ListDetector::List;
   $list->listsoftware("GNU Mailman version $version");
-  my $list_id = $head->get('List-Id');
-  print "List-Id is $list_id\n" if DEBUG;
-  return undef unless defined $list_id;
-  chomp $list_id;
-  my $listname;
-  my $list_full_name;
-  if ($list_id =~ /^.*?\ ?<(\S+?)\>$/) {
-    print "Listid matches pattern\n" if DEBUG;
-    $list_full_name = $listname = $1;
-    ($listname) = ($listname =~ /^([^.]*?)\./);
-    print "Got listname $listname\n" if DEBUG;
-    $list->listname($listname);
-  } else {
-    print "List id doesn't match\n" if DEBUG;
-    return undef;
+
+  my $sender = $head->get('Sender');
+  print "Sender is $sender\n" if DEBUG;
+  return undef unless defined $sender;
+  chomp $sender;
+  my $poss_posting_address;
+  if ($sender =~ /^(([^@]+)-admin\@(\S+))$/) {
+    print "sender matches pattern\n" if DEBUG;
+    $list->listname($2); 
+    print "Listname is $2\n" if DEBUG;
+    $poss_posting_address = $2 . '@' . $3;
+    print "Possible posting address is $poss_posting_address\n" if DEBUG;
   }
+
   my $posting_address;
   my $list_post = $head->get('List-Post');
   if (defined $list_post) {
@@ -48,10 +46,8 @@ sub match {
       $list->posting_address($posting_address);
     }
   } else {
-    $posting_address = $list_full_name;
-    $posting_address =~ s/\./\@/;
-    print "Got posting address $posting_address\n" if DEBUG;
-    $list->posting_address($posting_address);
+    print "Got posting address $poss_posting_address\n" if DEBUG;
+    $list->posting_address($poss_posting_address);
   }
 
   print "Returning object $list\n" if DEBUG;

@@ -21,6 +21,7 @@ t/06_majordomo.t
 t/07_sympa.t
 t/08_listar.t
 t/09_yahoogroups.t
+t/10_mailman_dot.t
 TODO
 BUGS
 README
