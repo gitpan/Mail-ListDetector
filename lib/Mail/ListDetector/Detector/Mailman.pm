@@ -31,7 +31,7 @@ sub match {
 
   if (defined $sender) {
 	chomp $sender;
-	if ($sender =~ /^(([^@]+)-(admin|owner|bounces)\@(\S+))$/) {
+	if ($sender =~ /^(([^@]+)-(admin|owner|bounces)(?:\+[^@]+)?\@(\S+))$/) {
 		print "sender matches pattern\n" if DEBUG;
 		$list->listname($2); 
 		print "Listname is $2\n" if DEBUG;

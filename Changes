@@ -49,4 +49,8 @@ Revision history for Perl extension Mail::ListDetector.
 	- Majordomo now recognises lists using domo as unix user not just majordomo 
 	- added new detectors for AutoShare, Google Groups, LetterRip, ListSTAR,
 	  Lyris and Onelist
-	- added tests for all changes and additions
+	1- added tests for all changes and additions
+
+0.32 30 Oct 2005
+  - Add patch from Peter Oliver for some mailman lists
+
