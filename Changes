@@ -54,3 +54,5 @@ Revision history for Perl extension Mail::ListDetector.
 0.32 30 Oct 2005
   - Add patch from Peter Oliver for some mailman lists
 
+0.34 08 Apr 2006
+  - Add patch for bare debug issue reported by Chip Salzenberg <chip@synthian.ath.cx>
