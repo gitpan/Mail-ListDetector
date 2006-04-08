@@ -40,7 +40,7 @@ sub match {
 
 	my ($listname, $posting_address);
 	my $list_unsubscribe = Email::Abstract->get_header($message, 'List-Unsubscribe');
-	print $list_unsubscribe;
+	print $list_unsubscribe if DEBUG;
 	if (defined($list_unsubscribe)) {
 		if ($list_unsubscribe =~ m/<mailto:(leave|unsubscribe)-(.*)-\d+[A-Z]{1}@(.*)>/) {
 			$listname = $2;
