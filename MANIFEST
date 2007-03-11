@@ -38,6 +38,8 @@ t/37_impossible_majordomo.t
 t/38_majordomo.t
 t/39_googlegroups.t
 t/40_onelist.t
+t/41_pod.t
+t/42_pod_coverage.t
 lib/Mail/ListDetector/Detector/RFC2369.pm
 lib/Mail/ListDetector/Detector/Fml.pm
 lib/Mail/ListDetector/Detector/CommuniGatePro.pm
@@ -69,4 +71,5 @@ examples/sample.pl
 BUGS
 AUTHORS
 README
+LICENSE
 Makefile.PL

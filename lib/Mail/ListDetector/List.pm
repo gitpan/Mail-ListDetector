@@ -56,19 +56,21 @@ outside the Mail::ListDetector package.
 
 =head1 METHODS
 
-=head1 new()
+=head2 new
 
-=head1 listname()
+Creates a new List object.
+
+=head2 listname
 
 This method gets or sets the name of the mailing list. The name to
 set is an optional argument.
 
-=head1 posting_address()
+=head2 posting_address
 
 This method gets or sets the posting address of the mailing list.
 The posting address to set is an optional argument.
 
-=head1 listsoftware()
+=head2 listsoftware
 
 This method gets or sets the mailing list software name. The name
 to set is an optional argument.

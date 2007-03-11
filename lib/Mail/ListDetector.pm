@@ -27,7 +27,7 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '0.34';
+$VERSION = '1.00';
 
 my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups CommuniGatePro GoogleGroups Listbox AutoShare RFC2919 Fml ListSTAR RFC2369 CommuniGate LetterRip Lyris Onelist Majordomo Listserv);
 
@@ -97,14 +97,14 @@ accurately identify the type of mailing list involved.
 
 =head1 METHODS
 
-=head1 new()
+=head2 new
 
 This method is the core of the module. Pass it a mail object, it will
 either return a Mail::ListDetector::List object that describes the
 mailing list that the message was posted to, or C<undef> if it appears
 not to have been a mailing list post.
 
-=head1 register_plugin($plugin_name)
+=head2 register_plugin($plugin_name)
 
 Registers a new plugin module that might recognise lists. Should
 be a subclass of Mail::ListDetector::Detector::Base, and provide
