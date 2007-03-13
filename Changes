@@ -56,3 +56,6 @@ Revision history for Perl extension Mail::ListDetector.
 
 0.34 08 Apr 2006
   - Add patch for bare debug issue reported by Chip Salzenberg <chip@synthian.ath.cx>
+
+1.01 13 Mar 2007
+  - Increase CPANTS score.

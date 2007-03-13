@@ -16,4 +16,5 @@ WriteMakefile(
     },
     'AUTHOR'        => 'Michael Stevens <michael@etla.org>',
     'ABSTRACT'      => 'Mailing list message detector',
+    'LICENSE'	    => 'perl',
 );
