@@ -1,6 +1,8 @@
 package Mail::ListDetector;
 
 use strict;
+use warnings;
+
 use Carp qw(carp croak);
 
 require Exporter;
@@ -27,7 +29,7 @@ use vars qw(@DETECTORS);
 	
 );
 
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 my @default_detectors = qw(Mailman Ezmlm Smartlist Listar Ecartis Yahoogroups CommuniGatePro GoogleGroups Listbox AutoShare RFC2919 Fml ListSTAR RFC2369 CommuniGate LetterRip Lyris Onelist Majordomo Listserv);
 

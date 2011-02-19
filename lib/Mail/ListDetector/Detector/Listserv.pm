@@ -1,6 +1,8 @@
 package Mail::ListDetector::Detector::Listserv;
 
 use strict;
+use warnings;
+
 use vars qw($VERSION);
 $VERSION = '0.01';
 
@@ -83,9 +85,6 @@ mailing list, or C<undef>.
 =head1 BUGS
 
 No known bugs.
-
-=head1 NOTES
-
 
 =head1 AUTHOR
 

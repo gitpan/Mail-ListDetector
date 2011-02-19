@@ -1,6 +1,7 @@
 package Mail::ListDetector::Detector::Base;
 
 use strict;
+use warnings;
 
 sub new {
   my $proto = shift;
@@ -23,7 +24,7 @@ __END__
 
 =head1 NAME
 
-  Mail::ListDetector::Detector::Base - base class for mailing list detectors
+Mail::ListDetector::Detector::Base - base class for mailing list detectors
 
 =head1 SYNOPSIS
 

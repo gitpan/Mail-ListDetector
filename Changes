@@ -67,3 +67,6 @@ Revision history for Perl extension Mail::ListDetector.
 
 1.03 30 Jun 2010
   - Make license more explicit
+
+1.04 19 Feb 2011
+  - Fix pod warnings.
